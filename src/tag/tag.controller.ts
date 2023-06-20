@@ -5,13 +5,16 @@ import {
 } from '@nestjs/swagger';
 import { ITagsRO } from './tag.interface';
 import { TagService } from './tag.service';
+import { MikroORM } from '@mikro-orm/mysql';
 
 @ApiBearerAuth()
 @ApiTags('tags')
 @Controller('tags')
 export class TagController {
 
-  constructor(private readonly tagService: TagService) {}
+  constructor(
+    private readonly mikroOrm: MikroORM,
+    private readonly tagService: TagService) {}
 
   @Get()
   async findAll(): Promise<ITagsRO> {
